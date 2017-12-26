@@ -82,18 +82,17 @@ delete temp;
 }
 }
 
-void showList(node *current) 
-{
-if(isEmpty(current))
-cout << "This patient list is empty \n" ; 
-else
-{
-cout << "The patient list contains : \n" ; 
-while (current != 0);
-}
-cout <<current->number ;
-cout <<current->name ;
-current = current-> next;
+void showList(node *current) {
+    if(isEmpty(current))
+        cout << "This patient list is empty \n" ; 
+    else {
+        cout << "The patient list contains : \n" ; 
+        while (current->next != NULL) {
+            cout << current->number ;
+            cout << current->name ;
+            current = current-> next;
+        }
+    }
 }
 void main()
 {
