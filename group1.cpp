@@ -15,13 +15,14 @@ void insert1(node *&head, node *&last, string name, int number);
 void insert2(node *&head, node *&last, string name, int number);
 void remove(node *&head);
 void showList(node *current);
-void main()
+void bubbleSort(struct node *head);
+void swap(struct node *a, struct node *b);
 
 bool isEmpty(node *head);
 {
-if(head == NULL)
+  if(head == NULL)
 return true;
-else
+  else
 return false;
 
 }
@@ -32,7 +33,8 @@ cout << "1. Add the patient name.\n" ; //To add patient name
 cout << "2. Add patient number.\n" ; 
 cout << "3. Delete patient data.\n" ; 
 cout << "4. Display patient list.\n" ; 
-cout << "5. Exit.\n" ; 
+cout << "5. Sort by name.\n" ;
+cout << "6. Exit.\n" ; 
 //return choice;
 }
 
@@ -68,13 +70,14 @@ last = temp;
 void remove(node *&head) 
 {
 if(isEmpty(head))
-cout <<"This is already empty.\n" ;
-else if (head == head)
+    cout <<"This is already empty.\n" ;
+
+    else if (head == head)
 {
 delete head;
 head = NULL;
 }
-else
+    else
 {
 node *temp = head;
 head = head ->next;
@@ -85,43 +88,51 @@ delete temp;
 void showList(node *current) {
     if(isEmpty(current))
         cout << "This patient list is empty \n" ; 
+   
     else {
         cout << "The patient list contains : \n" ; 
-        while (current->next != NULL) {
+       
+    while (current->next != NULL) {
             cout << current->number ;
             cout << current->name ;
             current = current-> next;
         }
     }
-}
-void main()
+  void bubbleSort(struct node *head)
 {
-    ///clrscr();
-    char str[10][20], t[20];
-    int i, j;
-    cout<<"Enter patient name : ";
-    for(i=0; i<10; i++)
+    int swapped, i;
+    struct node *name = NULL;
+
+ 
+    /* Checking for empty list */
+    if (name == NULL)
+        return;
+ 
+    do
     {
-        cin>>str[i];
-    }
-    for(i=1; i<10; i++)
-    {
-        for(j=1; j<10; j++)
+        swapped = 0;
+        name = head;
+ 
+        while (name->next != name)
         {
-            if(strcmp(str[j-1], str[j])>0)
-            {
-                strcpy(t, str[j-1]);
-                strcpy(str[j-1], str[j]);
-                strcpy(str[j], t);
+            if (name->name > name->next->name)
+            { 
+                swap(name, name->next);
+                swapped = 1;
             }
+            name = name->next;
         }
+        name = name;
     }
-    cout<<"Patient name : \n";
-    for(i=0; i<10; i++)
-    {
-        cout<<str[i]<<"\n";
-    }
-    //break;
+    while (swapped);
+}
+ 
+/* function to swap data of two nodes a and b*/
+void swap(struct node *a, struct node *b)
+{
+    string temp = a->name;
+    a->name = b->name;
+    b->name = temp;
 }
 
 int main()
@@ -156,12 +167,19 @@ break;
 case '4': showList(head);
     cout <<"All the patient data";
 break;
-case '5': 
+case '5': bubbleSort(head) ;
+	cout <<"Sort by patient name";
+case '6': 
 cout <<"System exit\n" ;
 running = 0;
 break;
 //default: cout << "sorry, what? (" << choice << ")\n";
 }
+  
+if (name != "" && number > 0) {
+insert1(head, last, name, number);
+name = "";
+number = -1;
 }
 return 0;
 }
